@@ -4,50 +4,415 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Rhythmically Rooted Family</title>
-  <meta name="description" content="Music, movement, and enrichment for families—where creativity takes root and confidence blossoms." />
+  <meta name="description" content="Where creativity takes root and confidence blossoms—through music, movement, and enrichment for families." />
+
   <style>
-    body { font-family: system-ui, Arial, sans-serif; margin: 0; line-height: 1.5; }
-    header, main { max-width: 960px; margin: 0 auto; padding: 24px; }
-    header { padding-top: 56px; padding-bottom: 24px; }
-    h1 { margin: 0 0 10px; font-size: 40px; }
-    .tagline { font-size: 18px; max-width: 70ch; }
-    .card { border: 1px solid #e5e5e5; border-radius: 14px; padding: 18px; margin: 14px 0; }
-    a.button { display: inline-block; padding: 12px 16px; border: 1px solid #222; border-radius: 10px; text-decoration: none; color: #222; }
-    footer { border-top: 1px solid #eee; color: #555; padding: 24px; }
-    .small { font-size: 14px; }
+    :root{
+      /* Brand-friendly palette (teal + purple) */
+      --teal-1:#7FE7E1;
+      --teal-2:#2EC4B6;
+      --blue-1:#8AD9FF;
+      --purple-1:#B48CFF;
+      --purple-2:#6D28D9;
+
+      --ink:#0f172a;
+      --muted:#475569;
+      --card: rgba(255,255,255,.85);
+      --border: rgba(15,23,42,.10);
+
+      --shadow: 0 14px 40px rgba(15,23,42,.12);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 700px at 10% 5%, rgba(127,231,225,.55), transparent 55%),
+        radial-gradient(900px 600px at 90% 10%, rgba(180,140,255,.45), transparent 60%),
+        radial-gradient(900px 700px at 70% 95%, rgba(138,217,255,.40), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, #f7fbff 45%, #ffffff 100%);
+      overflow-x:hidden;
+    }
+
+    /* Musical-note pattern overlay (light + subtle) */
+    .pattern{
+      position:fixed;
+      inset:-80px;
+      opacity:.13;
+      pointer-events:none;
+      z-index:0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%236D28D9' stroke-width='2' opacity='0.55'%3E%3Cpath d='M70 40v85c0 16-16 28-34 28S2 141 2 125s16-28 34-28c10 0 19 3 24 8V40l80-18v78c0 16-16 28-34 28s-34-12-34-28 16-28 34-28c10 0 19 3 24 8V28z'/%3E%3Cpath d='M178 58v66c0 14-14 24-30 24s-30-10-30-24 14-24 30-24c9 0 16 2 20 6V58l40-10v52'/%3E%3Cpath d='M22 182c18-16 34-16 52 0s34 16 52 0 34-16 52 0 34 16 52 0'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      filter: saturate(1.1);
+    }
+
+    .wrap{
+      position:relative;
+      z-index:1;
+      max-width:1060px;
+      margin:0 auto;
+      padding:28px 18px 70px;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 6px 18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .brand-badge{
+      width:42px; height:42px;
+      border-radius:14px;
+      background: linear-gradient(135deg, var(--teal-2), var(--purple-1));
+      box-shadow: 0 10px 24px rgba(109,40,217,.20);
+      display:grid; place-items:center;
+      color:white;
+      font-weight:900;
+    }
+    .nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      margin-left:14px;
+    }
+    .nav a:hover{ color:var(--ink); }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:10px;
+    }
+    @media (max-width: 920px){
+      .hero{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero-left{
+      padding:34px 28px;
+      position:relative;
+    }
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(46,196,182,.25);
+      background: rgba(127,231,225,.18);
+      color:#0b3b36;
+      font-weight:700;
+      font-size:14px;
+    }
+    h1{
+      margin:14px 0 10px;
+      font-size:44px;
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .tagline{
+      margin:0 0 18px;
+      color:var(--muted);
+      font-size:18px;
+      max-width:70ch;
+    }
+    .cta-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:12px 16px;
+      border-radius:14px;
+      text-decoration:none;
+      font-weight:800;
+      border:1px solid var(--border);
+      background:#fff;
+      color:var(--ink);
+    }
+    .btn-primary{
+      border: none;
+      color:white;
+      background: linear-gradient(135deg, var(--teal-2), var(--purple-2));
+      box-shadow: 0 10px 26px rgba(46,196,182,.20);
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn:active{ transform: translateY(0); }
+
+    .hero-right{
+      padding:18px;
+      display:grid;
+      gap:14px;
+    }
+
+    .mini{
+      padding:16px 16px;
+      background: rgba(255,255,255,.8);
+      border:1px solid var(--border);
+      border-radius:16px;
+    }
+    .mini h3{ margin:0 0 6px; font-size:16px; }
+    .mini p{ margin:0; color:var(--muted); font-size:14px; }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (max-width: 920px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      padding:18px 18px;
+      background: rgba(255,255,255,.86);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow: 0 10px 24px rgba(15,23,42,.08);
+      position:relative;
+      overflow:hidden;
+    }
+    .card h2{ margin:0 0 10px; font-size:18px; }
+    .card p, .card li{ color:var(--muted); }
+    .card ul{ padding-left:18px; margin:10px 0 0; }
+
+    .accent-swoosh{
+      position:absolute;
+      right:-40px;
+      top:-40px;
+      width:160px;
+      height:160px;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(127,231,225,.65), rgba(180,140,255,.35), transparent 70%);
+      transform: rotate(20deg);
+      filter: blur(0.2px);
+      opacity:.9;
+    }
+
+    footer{
+      margin-top:22px;
+      padding:18px 8px 0;
+      color: var(--muted);
+      font-size:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    /* Dancing “cartoons” (inline SVG containers) */
+    .dancers{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .dancers{ grid-template-columns: 1fr; }
+    }
+    .dancer{
+      background: linear-gradient(135deg, rgba(127,231,225,.22), rgba(180,140,255,.20));
+      border: 1px solid rgba(15,23,42,.10);
+      border-radius: 16px;
+      padding: 12px;
+      overflow:hidden;
+      position:relative;
+      min-height: 220px;
+    }
+    .dancer svg{
+      width:100%;
+      height:220px;
+      display:block;
+    }
+    .dancer .label{
+      position:absolute;
+      left:12px;
+      bottom:12px;
+      font-weight:800;
+      color:#0f172a;
+      font-size:14px;
+      background: rgba(255,255,255,.75);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+    }
   </style>
 </head>
+
 <body>
-  <header>
-    <h1>Rhythmically Rooted Family</h1>
-    <p class="tagline">Where creativity takes root and confidence blossoms—through music, movement, and enrichment for kids and caregivers.</p>
-    <p><a class="button" href="mailto:youremail@example.com">Contact</a></p>
-  </header>
+  <div class="pattern" aria-hidden="true"></div>
 
-  <main>
-    <div class="card">
-      <h2>What We Offer</h2>
-      <ul>
-        <li>Zumbini / family movement classes</li>
-        <li>Zumba Kids and modified movement options</li>
-        <li>Coloring + enrichment experiences and resources</li>
-      </ul>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-badge">RR</div>
+        <div>Rhythmically Rooted Family</div>
+      </div>
+      <div>
+        <a href="#offerings">Offerings</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>About</h2>
-      <p>Write 2–4 sentences about your mission and who you serve.</p>
-    </div>
+    <section class="hero">
+      <div class="panel hero-left">
+        <span class="kicker">Music • Movement • Creativity</span>
+        <h1>Where creativity takes root and confidence blossoms.</h1>
+        <p class="tagline">
+          Rhythmically Rooted Family brings playful, supportive experiences for kids and caregivers—movement that meets you
+          where you are, and creativity that feels accessible and fun.
+        </p>
 
-    <div class="card">
-      <h2>Get Updates</h2>
-      <p>Add your Instagram/Facebook links here, or a simple newsletter sign-up later.</p>
-    </div>
-  </main>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:youremail@example.com">Email us</a>
+          <a class="btn" href="#offerings">See offerings</a>
+          <a class="btn" href="#contact">Book / inquire</a>
+        </div>
+      </div>
 
-  <footer>
-    <div class="small">© <span id="y"></span> Rhythmically Rooted Family</div>
-  </footer>
-  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+      <div class="panel hero-right">
+        <div class="mini">
+          <h3>Best for</h3>
+          <p>Toddlers + caregivers • Kids programs • Modified movement • Family enrichment</p>
+        </div>
+        <div class="mini">
+          <h3>Serving</h3>
+          <p>Update this line with your area (e.g., Deltona / Volusia County) + “and online options.”</p>
+        </div>
+        <div class="mini">
+          <h3>Quick link</h3>
+          <p>Add your Instagram/Facebook link here when ready.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="dancers" style="margin-top:16px;">
+      <div class="dancer">
+        <!-- Simple “dancing cartoon” SVG #1 -->
+        <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dancing character illustration">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#2EC4B6" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#6D28D9" stop-opacity="0.95"/>
+            </linearGradient>
+          </defs>
+          <circle cx="110" cy="95" r="42" fill="url(#g1)" opacity="0.25"/>
+          <circle cx="475" cy="70" r="30" fill="url(#g1)" opacity="0.18"/>
+          <path d="M70 210c90-70 165-70 255 0s165 70 255 0" fill="none" stroke="#6D28D9" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/>
+
+          <!-- body -->
+          <circle cx="290" cy="72" r="26" fill="#0f172a"/>
+          <path d="M290 98c28 0 48 22 48 50v10c0 18-12 32-48 32s-48-14-48-32v-10c0-28 20-50 48-50z" fill="url(#g1)"/>
+          <!-- arms -->
+          <path d="M250 132c-38-24-70-18-98 18" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+          <path d="M330 132c34-34 72-40 112-18" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+          <!-- legs -->
+          <path d="M278 190c-22 22-38 44-44 64" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+          <path d="M304 190c28 18 50 42 66 72" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+
+          <!-- music notes -->
+          <path d="M420 120v64c0 10-10 18-22 18s-22-8-22-18 10-18 22-18c6 0 12 2 16 5v-51l42-10v44" fill="none" stroke="#2EC4B6" stroke-width="8" stroke-linecap="round"/>
+          <path d="M505 110v54c0 9-9 16-19 16s-19-7-19-16 9-16 19-16c5 0 10 2 13 4v-44l36-9v38" fill="none" stroke="#6D28D9" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+        </svg>
+        <div class="label">Dance + Joy</div>
+      </div>
+
+      <div class="dancer">
+        <!-- Simple “dancing cartoon” SVG #2 -->
+        <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dancing character illustration">
+          <defs>
+            <linearGradient id="g2" x1="0" x2="1">
+              <stop offset="0" stop-color="#8AD9FF" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#B48CFF" stop-opacity="0.95"/>
+            </linearGradient>
+          </defs>
+          <circle cx="120" cy="70" r="34" fill="url(#g2)" opacity="0.22"/>
+          <circle cx="520" cy="90" r="44" fill="url(#g2)" opacity="0.18"/>
+          <path d="M40 205c70-55 140-55 210 0s140 55 210 0 140-55 210 0" fill="none" stroke="#2EC4B6" stroke-opacity=".22" stroke-width="8" stroke-linecap="round"/>
+
+          <!-- body -->
+          <circle cx="300" cy="70" r="26" fill="#0f172a"/>
+          <path d="M300 96c26 0 44 18 44 44v18c0 22-16 38-44 38s-44-16-44-38v-18c0-26 18-44 44-44z" fill="url(#g2)"/>
+          <!-- arms -->
+          <path d="M265 130c-38-8-66-30-84-66" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+          <path d="M335 130c40 14 76 6 108-24" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+          <!-- legs -->
+          <path d="M288 196c-6 28-18 50-38 66" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+          <path d="M312 196c24 10 44 30 60 58" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
+
+          <!-- music notes -->
+          <path d="M150 130v62c0 10-10 18-22 18s-22-8-22-18 10-18 22-18c6 0 12 2 16 5v-48l44-11v41" fill="none" stroke="#B48CFF" stroke-width="8" stroke-linecap="round"/>
+          <path d="M470 122v55c0 9-9 16-19 16s-19-7-19-16 9-16 19-16c5 0 10 2 13 4v-45l36-9v38" fill="none" stroke="#2EC4B6" stroke-width="8" stroke-linecap="round" opacity=".95"/>
+        </svg>
+        <div class="labelasing, 2, instructions: </div>
+      </div>
+    </section>
+
+    <section id="offerings" class="grid">
+      <div class="card">
+        <div class="accent-swoosh"></div>
+        <h2>Offerings</h2>
+        <ul>
+          <li>Zumbini-style family movement + bonding</li>
+          <li>Zumba Kids & youth movement experiences</li>
+          <li>Modified / chair-friendly movement options</li>
+          <li>Coloring + enrichment activities and events</li>
+        </ul>
+      </div>
+
+      <div id="about" class="card">
+        <div class="accent-swoosh"></div>
+        <h2>About</h2>
+        <p>
+          Replace this with a short paragraph about your mission and who you serve.
+          Keep it warm, simple, and specific to families, creativity, and confidence.
+        </p>
+      </div>
+
+      <div id="contact" class="card">
+        <div class="accent-swoosh"></div>
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+        <p>Social: add your Instagram/Facebook links here.</p>
+        <p style="margin-top:10px;">
+          <a class="btn btn-primary" href="mailto:youremail@example.com">Book / Ask a question</a>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div>© <span id="y"></span> Rhythmically Rooted Family</div>
+      <div>Teal + Purple • Music + Movement • Confidence + Creativity</div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
