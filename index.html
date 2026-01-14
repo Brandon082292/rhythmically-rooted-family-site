@@ -8,20 +8,20 @@
 
   <style>
     :root{
-      /* Brand-friendly palette (teal + purple) */
-      --teal-1:#7FE7E1;
-      --teal-2:#2EC4B6;
-      --blue-1:#8AD9FF;
-      --purple-1:#B48CFF;
-      --purple-2:#6D28D9;
+      /* Your requested palette: teal/light blue + purple */
+      --teal:#22c6b8;
+      --tealLite:#bff6f1;
+      --sky:#9fe2ff;
+      --purple:#7c3aed;
+      --purpleLite:#d8c8ff;
 
       --ink:#0f172a;
       --muted:#475569;
-      --card: rgba(255,255,255,.85);
-      --border: rgba(15,23,42,.10);
-
-      --shadow: 0 14px 40px rgba(15,23,42,.12);
-      --radius: 18px;
+      --card:rgba(255,255,255,.92);
+      --border:rgba(15,23,42,.10);
+      --shadow:0 18px 50px rgba(15,23,42,.12);
+      --radius:18px;
+      --max:1100px;
     }
 
     *{box-sizing:border-box}
@@ -30,236 +30,250 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1200px 700px at 10% 5%, rgba(127,231,225,.55), transparent 55%),
-        radial-gradient(900px 600px at 90% 10%, rgba(180,140,255,.45), transparent 60%),
-        radial-gradient(900px 700px at 70% 95%, rgba(138,217,255,.40), transparent 55%),
-        linear-gradient(180deg, #ffffff 0%, #f7fbff 45%, #ffffff 100%);
+        radial-gradient(1100px 700px at 15% 5%, rgba(34,198,184,.35), transparent 55%),
+        radial-gradient(900px 600px at 85% 10%, rgba(124,58,237,.28), transparent 60%),
+        radial-gradient(900px 650px at 70% 95%, rgba(159,226,255,.35), transparent 55%),
+        linear-gradient(180deg, #ffffff 0%, #f7fbff 55%, #ffffff 100%);
       overflow-x:hidden;
     }
 
-    /* Musical-note pattern overlay (light + subtle) */
+    /* subtle musical-note pattern overlay */
     .pattern{
-      position:fixed;
-      inset:-80px;
-      opacity:.13;
-      pointer-events:none;
-      z-index:0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%236D28D9' stroke-width='2' opacity='0.55'%3E%3Cpath d='M70 40v85c0 16-16 28-34 28S2 141 2 125s16-28 34-28c10 0 19 3 24 8V40l80-18v78c0 16-16 28-34 28s-34-12-34-28 16-28 34-28c10 0 19 3 24 8V28z'/%3E%3Cpath d='M178 58v66c0 14-14 24-30 24s-30-10-30-24 14-24 30-24c9 0 16 2 20 6V58l40-10v52'/%3E%3Cpath d='M22 182c18-16 34-16 52 0s34 16 52 0 34-16 52 0 34 16 52 0'/%3E%3C/g%3E%3C/svg%3E");
-      background-size: 220px 220px;
-      filter: saturate(1.1);
+      position:fixed; inset:-80px; z-index:0; pointer-events:none; opacity:.12;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%237c3aed' stroke-width='2' opacity='0.55'%3E%3Cpath d='M70 40v85c0 16-16 28-34 28S2 141 2 125s16-28 34-28c10 0 19 3 24 8V40l80-18v78c0 16-16 28-34 28s-34-12-34-28 16-28 34-28c10 0 19 3 24 8V28z'/%3E%3Cpath d='M178 58v66c0 14-14 24-30 24s-30-10-30-24 14-24 30-24c9 0 16 2 20 6V58l40-10v52'/%3E%3Cpath d='M22 182c18-16 34-16 52 0s34 16 52 0 34-16 52 0 34 16 52 0'/%3E%3C/g%3E%3C/svg%3E");
+      background-size:220px 220px;
     }
 
-    .wrap{
-      position:relative;
-      z-index:1;
-      max-width:1060px;
-      margin:0 auto;
-      padding:28px 18px 70px;
-    }
+    .wrap{ position:relative; z-index:1; max-width:var(--max); margin:0 auto; padding:0 18px 70px; }
 
+    /* Top info bar (like a studio/site header strip) */
+    .topbar{
+      margin-top:14px;
+      border-radius:999px;
+      padding:10px 14px;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--border);
+      display:flex;
+      gap:10px;
+      justify-content:space-between;
+      align-items:center;
+      font-size:14px;
+      color:var(--muted);
+      backdrop-filter: blur(10px);
+    }
+    .topbar strong{ color:var(--ink); font-weight:800; }
+    .topbar a{ color:var(--purple); text-decoration:none; font-weight:800; }
+
+    /* Nav */
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
-      padding:10px 6px 18px;
+      padding:16px 4px 18px;
     }
     .brand{
       display:flex; align-items:center; gap:10px;
-      font-weight:800;
-      letter-spacing:.2px;
+      font-weight:900; letter-spacing:.2px;
     }
-    .brand-badge{
-      width:42px; height:42px;
-      border-radius:14px;
-      background: linear-gradient(135deg, var(--teal-2), var(--purple-1));
-      box-shadow: 0 10px 24px rgba(109,40,217,.20);
-      display:grid; place-items:center;
-      color:white;
-      font-weight:900;
+    .logo{
+      width:44px; height:44px; border-radius:16px;
+      background:linear-gradient(135deg, var(--teal), var(--purple));
+      box-shadow:0 14px 28px rgba(124,58,237,.18);
+      display:grid; place-items:center; color:white;
+      font-weight:950;
     }
-    .nav a{
+    .navlinks a{
+      margin-left:14px;
       color:var(--muted);
       text-decoration:none;
-      font-weight:600;
-      margin-left:14px;
+      font-weight:800;
     }
-    .nav a:hover{ color:var(--ink); }
+    .navlinks a:hover{ color:var(--ink); }
 
+    /* Hero */
     .hero{
       display:grid;
       grid-template-columns: 1.25fr .75fr;
-      gap:18px;
+      gap:16px;
       align-items:stretch;
-      margin-top:10px;
     }
-    @media (max-width: 920px){
-      .hero{ grid-template-columns: 1fr; }
+    @media (max-width: 960px){
+      .hero{ grid-template-columns:1fr; }
+      .nav{ flex-direction:column; align-items:flex-start; }
+      .navlinks a{ margin-left:0; margin-right:12px; }
     }
 
     .panel{
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
       overflow:hidden;
     }
-
-    .hero-left{
+    .heroLeft{
       padding:34px 28px;
       position:relative;
     }
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
       padding:8px 12px;
       border-radius:999px;
-      border:1px solid rgba(46,196,182,.25);
-      background: rgba(127,231,225,.18);
+      background:rgba(34,198,184,.14);
+      border:1px solid rgba(34,198,184,.22);
       color:#0b3b36;
-      font-weight:700;
-      font-size:14px;
+      font-weight:900;
+      font-size:13px;
     }
     h1{
       margin:14px 0 10px;
       font-size:44px;
       line-height:1.05;
-      letter-spacing:-.6px;
+      letter-spacing:-.7px;
     }
-    .tagline{
-      margin:0 0 18px;
-      color:var(--muted);
-      font-size:18px;
-      max-width:70ch;
-    }
-    .cta-row{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:18px;
-    }
+    .tagline{ margin:0 0 18px; color:var(--muted); font-size:18px; max-width:70ch; }
+
+    .ctaRow{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
     .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
       padding:12px 16px;
       border-radius:14px;
       text-decoration:none;
-      font-weight:800;
+      font-weight:950;
       border:1px solid var(--border);
       background:#fff;
       color:var(--ink);
     }
-    .btn-primary{
-      border: none;
-      color:white;
-      background: linear-gradient(135deg, var(--teal-2), var(--purple-2));
-      box-shadow: 0 10px 26px rgba(46,196,182,.20);
+    .btnPrimary{
+      border:none; color:#fff;
+      background:linear-gradient(135deg, var(--teal), var(--purple));
+      box-shadow:0 16px 30px rgba(34,198,184,.18);
     }
-    .btn:hover{ transform: translateY(-1px); }
-    .btn:active{ transform: translateY(0); }
+    .btn:hover{ transform:translateY(-1px); }
+    .btn:active{ transform:translateY(0); }
 
-    .hero-right{
-      padding:18px;
-      display:grid;
-      gap:14px;
-    }
-
+    .heroRight{ padding:16px; display:grid; gap:14px; }
     .mini{
-      padding:16px 16px;
-      background: rgba(255,255,255,.8);
+      padding:16px;
+      background:rgba(255,255,255,.85);
       border:1px solid var(--border);
       border-radius:16px;
     }
     .mini h3{ margin:0 0 6px; font-size:16px; }
     .mini p{ margin:0; color:var(--muted); font-size:14px; }
 
-    .grid{
+    /* Service cards like "Services" blocks */
+    .sectionTitle{
+      margin:26px 0 10px;
+      font-size:22px;
+      letter-spacing:-.2px;
+    }
+    .sectionLead{ margin:0 0 14px; color:var(--muted); }
+
+    .cards{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap:14px;
-      margin-top:18px;
     }
-    @media (max-width: 920px){
-      .grid{ grid-template-columns: 1fr; }
+    @media (max-width: 960px){
+      .cards{ grid-template-columns:1fr; }
     }
-
     .card{
-      padding:18px 18px;
-      background: rgba(255,255,255,.86);
-      border:1px solid var(--border);
+      padding:18px;
       border-radius:16px;
-      box-shadow: 0 10px 24px rgba(15,23,42,.08);
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--border);
+      box-shadow:0 12px 26px rgba(15,23,42,.08);
       position:relative;
       overflow:hidden;
     }
-    .card h2{ margin:0 0 10px; font-size:18px; }
-    .card p, .card li{ color:var(--muted); }
-    .card ul{ padding-left:18px; margin:10px 0 0; }
-
-    .accent-swoosh{
-      position:absolute;
-      right:-40px;
-      top:-40px;
-      width:160px;
-      height:160px;
-      border-radius:999px;
-      background: radial-gradient(circle at 30% 30%, rgba(127,231,225,.65), rgba(180,140,255,.35), transparent 70%);
-      transform: rotate(20deg);
-      filter: blur(0.2px);
-      opacity:.9;
+    .card .swoosh{
+      position:absolute; right:-50px; top:-55px;
+      width:190px; height:190px; border-radius:999px;
+      background:radial-gradient(circle at 30% 30%, rgba(34,198,184,.55), rgba(124,58,237,.30), transparent 72%);
+      opacity:.95;
     }
+    .card h3{ margin:0 0 6px; font-size:18px; }
+    .card p{ margin:0 0 12px; color:var(--muted); }
+    .card ul{ margin:0; padding-left:18px; color:var(--muted); }
 
-    footer{
-      margin-top:22px;
-      padding:18px 8px 0;
-      color: var(--muted);
-      font-size:14px;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      justify-content:space-between;
-      align-items:center;
-    }
-
-    /* Dancing “cartoons” (inline SVG containers) */
+    /* “Dancing cartoons” row */
     .dancers{
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap:14px;
-      align-items:stretch;
+      margin-top:14px;
     }
-    @media (max-width: 920px){
-      .dancers{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 960px){ .dancers{ grid-template-columns:1fr; } }
     .dancer{
-      background: linear-gradient(135deg, rgba(127,231,225,.22), rgba(180,140,255,.20));
-      border: 1px solid rgba(15,23,42,.10);
-      border-radius: 16px;
-      padding: 12px;
-      overflow:hidden;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(34,198,184,.16), rgba(124,58,237,.14));
+      padding:12px;
       position:relative;
-      min-height: 220px;
+      overflow:hidden;
+      min-height:230px;
     }
-    .dancer svg{
-      width:100%;
-      height:220px;
-      display:block;
-    }
-    .dancer .label{
-      position:absolute;
-      left:12px;
-      bottom:12px;
-      font-weight:800;
-      color:#0f172a;
-      font-size:14px;
-      background: rgba(255,255,255,.75);
+    .dancer svg{ width:100%; height:230px; display:block; }
+    .label{
+      position:absolute; left:12px; bottom:12px;
+      font-weight:950;
+      font-size:13px;
+      background:rgba(255,255,255,.78);
+      border:1px solid var(--border);
       padding:6px 10px;
       border-radius:999px;
-      border:1px solid var(--border);
     }
+
+    /* Schedule/registration area */
+    .schedule{
+      margin-top:18px;
+      padding:18px;
+      border-radius:16px;
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--border);
+      box-shadow:0 12px 26px rgba(15,23,42,.08);
+      display:grid;
+      gap:10px;
+    }
+    .scheduleRow{
+      display:flex;
+      gap:12px;
+      justify-content:space-between;
+      align-items:center;
+      flex-wrap:wrap;
+      padding:12px;
+      border-radius:14px;
+      border:1px dashed rgba(15,23,42,.18);
+      background:rgba(255,255,255,.75);
+    }
+    .scheduleRow strong{ font-weight:950; }
+    .scheduleRow span{ color:var(--muted); }
+
+    /* Testimonials + footer */
+    .quote{
+      margin-top:14px;
+      padding:18px;
+      border-radius:16px;
+      background:rgba(255,255,255,.88);
+      border:1px solid var(--border);
+      box-shadow:0 12px 26px rgba(15,23,42,.08);
+    }
+    .quote blockquote{ margin:0; color:var(--muted); font-size:16px; }
+    .quote .who{ margin-top:10px; font-weight:950; }
+
+    footer{
+      margin-top:22px;
+      padding:18px 8px 0;
+      color:var(--muted);
+      font-size:14px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+    footer a{ color:var(--purple); font-weight:900; text-decoration:none; }
   </style>
 </head>
 
@@ -267,152 +281,199 @@
   <div class="pattern" aria-hidden="true"></div>
 
   <div class="wrap">
+    <!-- Top bar -->
+    <div class="topbar">
+      <div><strong>Now enrolling:</strong> Upcoming classes + events</div>
+      <div><a href="#register">Register</a> • <a href="#contact">Contact</a></div>
+    </div>
+
+    <!-- Nav -->
     <div class="nav">
       <div class="brand">
-        <div class="brand-badge">RR</div>
-        <div>Rhythmically Rooted Family</div>
+        <div class="logo">RR</div>
+        <div>
+          Rhythmically Rooted Family<br />
+          <span style="font-weight:800;color:var(--muted);font-size:13px;">Music • Movement • Creativity</span>
+        </div>
       </div>
-      <div>
-        <a href="#offerings">Offerings</a>
+      <div class="navlinks">
+        <a href="#services">Services</a>
+        <a href="#classes">Classes</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </div>
     </div>
 
+    <!-- Hero -->
     <section class="hero">
-      <div class="panel hero-left">
-        <span class="kicker">Music • Movement • Creativity</span>
-        <h1>Where creativity takes root and confidence blossoms.</h1>
+      <div class="panel heroLeft">
+        <span class="badge">Where creativity takes root and confidence blossoms</span>
+        <h1>Move, create, and connect—without pressure or perfection.</h1>
         <p class="tagline">
-          Rhythmically Rooted Family brings playful, supportive experiences for kids and caregivers—movement that meets you
-          where you are, and creativity that feels accessible and fun.
+          We offer family-centered music and movement experiences, kid-friendly enrichment, and confidence-building creativity—designed to meet every season of life.
         </p>
 
-        <div class="cta-row">
-          <a class="btn btn-primary" href="mailto:youremail@example.com">Email us</a>
-          <a class="btn" href="#offerings">See offerings</a>
-          <a class="btn" href="#contact">Book / inquire</a>
+        <div class="ctaRow" id="register">
+          <!-- Replace these links with your real registration/booking links -->
+          <a class="btn btnPrimary" href="PUT-YOUR-REGISTRATION-LINK-HERE">Register for a class</a>
+          <a class="btn" href="#classes">View schedule</a>
+          <a class="btn" href="mailto:youremail@example.com">Email us</a>
         </div>
       </div>
 
-      <div class="panel hero-right">
+      <div class="panel heroRight">
         <div class="mini">
-          <h3>Best for</h3>
+          <h3>Perfect for</h3>
           <p>Toddlers + caregivers • Kids programs • Modified movement • Family enrichment</p>
         </div>
         <div class="mini">
-          <h3>Serving</h3>
-          <p>Update this line with your area (e.g., Deltona / Volusia County) + “and online options.”</p>
+          <h3>Location</h3>
+          <p>Update this line with your city/area + “mobile and pop-ups available.”</p>
         </div>
         <div class="mini">
-          <h3>Quick link</h3>
-          <p>Add your Instagram/Facebook link here when ready.</p>
+          <h3>Follow along</h3>
+          <p>
+            <a href="PUT-INSTAGRAM-LINK" style="color:var(--purple);font-weight:900;text-decoration:none;">Instagram</a> •
+            <a href="PUT-FACEBOOK-LINK" style="color:var(--purple);font-weight:900;text-decoration:none;">Facebook</a>
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="dancers" style="margin-top:16px;">
+    <!-- Decorative “cartoon” dancers + notes -->
+    <section class="dancers" aria-label="Decorative illustrations">
       <div class="dancer">
-        <!-- Simple “dancing cartoon” SVG #1 -->
         <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dancing character illustration">
           <defs>
             <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#2EC4B6" stop-opacity="0.95"/>
-              <stop offset="1" stop-color="#6D28D9" stop-opacity="0.95"/>
+              <stop offset="0" stop-color="#22c6b8" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#7c3aed" stop-opacity="0.95"/>
             </linearGradient>
           </defs>
           <circle cx="110" cy="95" r="42" fill="url(#g1)" opacity="0.25"/>
           <circle cx="475" cy="70" r="30" fill="url(#g1)" opacity="0.18"/>
-          <path d="M70 210c90-70 165-70 255 0s165 70 255 0" fill="none" stroke="#6D28D9" stroke-opacity=".25" stroke-width="8" stroke-linecap="round"/>
+          <path d="M70 210c90-70 165-70 255 0s165 70 255 0" fill="none" stroke="#7c3aed" stroke-opacity=".20" stroke-width="8" stroke-linecap="round"/>
 
-          <!-- body -->
           <circle cx="290" cy="72" r="26" fill="#0f172a"/>
           <path d="M290 98c28 0 48 22 48 50v10c0 18-12 32-48 32s-48-14-48-32v-10c0-28 20-50 48-50z" fill="url(#g1)"/>
-          <!-- arms -->
           <path d="M250 132c-38-24-70-18-98 18" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
           <path d="M330 132c34-34 72-40 112-18" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
-          <!-- legs -->
           <path d="M278 190c-22 22-38 44-44 64" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
           <path d="M304 190c28 18 50 42 66 72" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
 
-          <!-- music notes -->
-          <path d="M420 120v64c0 10-10 18-22 18s-22-8-22-18 10-18 22-18c6 0 12 2 16 5v-51l42-10v44" fill="none" stroke="#2EC4B6" stroke-width="8" stroke-linecap="round"/>
-          <path d="M505 110v54c0 9-9 16-19 16s-19-7-19-16 9-16 19-16c5 0 10 2 13 4v-44l36-9v38" fill="none" stroke="#6D28D9" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+          <path d="M420 120v64c0 10-10 18-22 18s-22-8-22-18 10-18 22-18c6 0 12 2 16 5v-51l42-10v44" fill="none" stroke="#22c6b8" stroke-width="8" stroke-linecap="round"/>
+          <path d="M505 110v54c0 9-9 16-19 16s-19-7-19-16 9-16 19-16c5 0 10 2 13 4v-44l36-9v38" fill="none" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" opacity=".9"/>
         </svg>
         <div class="label">Dance + Joy</div>
       </div>
 
       <div class="dancer">
-        <!-- Simple “dancing cartoon” SVG #2 -->
         <svg viewBox="0 0 600 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dancing character illustration">
           <defs>
             <linearGradient id="g2" x1="0" x2="1">
-              <stop offset="0" stop-color="#8AD9FF" stop-opacity="0.95"/>
-              <stop offset="1" stop-color="#B48CFF" stop-opacity="0.95"/>
+              <stop offset="0" stop-color="#9fe2ff" stop-opacity="0.95"/>
+              <stop offset="1" stop-color="#d8c8ff" stop-opacity="0.95"/>
             </linearGradient>
           </defs>
           <circle cx="120" cy="70" r="34" fill="url(#g2)" opacity="0.22"/>
           <circle cx="520" cy="90" r="44" fill="url(#g2)" opacity="0.18"/>
-          <path d="M40 205c70-55 140-55 210 0s140 55 210 0 140-55 210 0" fill="none" stroke="#2EC4B6" stroke-opacity=".22" stroke-width="8" stroke-linecap="round"/>
+          <path d="M40 205c70-55 140-55 210 0s140 55 210 0 140-55 210 0" fill="none" stroke="#22c6b8" stroke-opacity=".20" stroke-width="8" stroke-linecap="round"/>
 
-          <!-- body -->
           <circle cx="300" cy="70" r="26" fill="#0f172a"/>
           <path d="M300 96c26 0 44 18 44 44v18c0 22-16 38-44 38s-44-16-44-38v-18c0-26 18-44 44-44z" fill="url(#g2)"/>
-          <!-- arms -->
           <path d="M265 130c-38-8-66-30-84-66" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
           <path d="M335 130c40 14 76 6 108-24" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
-          <!-- legs -->
           <path d="M288 196c-6 28-18 50-38 66" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
           <path d="M312 196c24 10 44 30 60 58" fill="none" stroke="#0f172a" stroke-width="10" stroke-linecap="round"/>
 
-          <!-- music notes -->
-          <path d="M150 130v62c0 10-10 18-22 18s-22-8-22-18 10-18 22-18c6 0 12 2 16 5v-48l44-11v41" fill="none" stroke="#B48CFF" stroke-width="8" stroke-linecap="round"/>
-          <path d="M470 122v55c0 9-9 16-19 16s-19-7-19-16 9-16 19-16c5 0 10 2 13 4v-45l36-9v38" fill="none" stroke="#2EC4B6" stroke-width="8" stroke-linecap="round" opacity=".95"/>
+          <path d="M150 130v62c0 10-10 18-22 18s-22-8-22-18 10-18 22-18c6 0 12 2 16 5v-48l44-11v41" fill="none" stroke="#7c3aed" stroke-width="8" stroke-linecap="round" opacity=".9"/>
+          <path d="M470 122v55c0 9-9 16-19 16s-19-7-19-16 9-16 19-16c5 0 10 2 13 4v-45l36-9v38" fill="none" stroke="#22c6b8" stroke-width="8" stroke-linecap="round" opacity=".95"/>
         </svg>
-        <div class="labelasing, 2, instructions: </div>
+        <div class="label">Music + Movement</div>
       </div>
     </section>
 
-    <section id="offerings" class="grid">
+    <!-- Services (cards + CTAs, similar concept to your examples) -->
+    <h2 class="sectionTitle" id="services">Services</h2>
+    <p class="sectionLead">Pick what fits your season. Tap “Register” to save your spot.</p>
+
+    <section class="cards">
       <div class="card">
-        <div class="accent-swoosh"></div>
-        <h2>Offerings</h2>
-        <ul>
-          <li>Zumbini-style family movement + bonding</li>
-          <li>Zumba Kids & youth movement experiences</li>
-          <li>Modified / chair-friendly movement options</li>
-          <li>Coloring + enrichment activities and events</li>
-        </ul>
+        <div class="swoosh"></div>
+        <h3>Family Music & Movement</h3>
+        <p>Singing, dancing, bonding—caregiver participation encouraged.</p>
+        <a class="btn btnPrimary" href="PUT-YOUR-REGISTRATION-LINK-HERE">Register</a>
       </div>
 
-      <div id="about" class="card">
-        <div class="accent-swoosh"></div>
-        <h2>About</h2>
-        <p>
-          Replace this with a short paragraph about your mission and who you serve.
-          Keep it warm, simple, and specific to families, creativity, and confidence.
-        </p>
+      <div class="card">
+        <div class="swoosh"></div>
+        <h3>Zumba Kids / Youth Movement</h3>
+        <p>High-energy, kid-friendly movement with confidence-building fun.</p>
+        <a class="btn btnPrimary" href="PUT-YOUR-REGISTRATION-LINK-HERE">Register</a>
       </div>
 
-      <div id="contact" class="card">
-        <div class="accent-swoosh"></div>
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
-        <p>Social: add your Instagram/Facebook links here.</p>
-        <p style="margin-top:10px;">
-          <a class="btn btn-primary" href="mailto:youremail@example.com">Book / Ask a question</a>
-        </p>
+      <div class="card">
+        <div class="swoosh"></div>
+        <h3>Modified / Chair-Friendly Options</h3>
+        <p>Supportive movement that meets bodies where they are.</p>
+        <a class="btn btnPrimary" href="PUT-YOUR-REGISTRATION-LINK-HERE">Register</a>
       </div>
     </section>
+
+    <!-- Classes / Schedule -->
+    <h2 class="sectionTitle" id="classes">Upcoming Classes</h2>
+    <p class="sectionLead">Update these rows with your real schedule and registration links.</p>
+
+    <div class="schedule">
+      <div class="scheduleRow">
+        <div>
+          <strong>Class Name / Theme</strong><br />
+          <span>Day • Time • Location</span>
+        </div>
+        <a class="btn btnPrimary" href="PUT-YOUR-REGISTRATION-LINK-HERE">Register</a>
+      </div>
+
+      <div class="scheduleRow">
+        <div>
+          <strong>Class Name / Theme</strong><br />
+          <span>Day • Time • Location</span>
+        </div>
+        <a class="btn btnPrimary" href="PUT-YOUR-REGISTRATION-LINK-HERE">Register</a>
+      </div>
+    </div>
+
+    <!-- About -->
+    <h2 class="sectionTitle" id="about">About</h2>
+    <div class="quote">
+      <blockquote>
+        Replace this with your 4–6 sentence story: why you started, who you serve, and what makes your space feel safe and fun.
+      </blockquote>
+      <div class="who">— Rhythmically Rooted Family</div>
+    </div>
+
+    <!-- Contact -->
+    <h2 class="sectionTitle" id="contact">Contact</h2>
+    <div class="quote">
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+        <div>
+          <div style="font-weight:950;">Email</div>
+          <div><a href="mailto:youremail@example.com">youremail@example.com</a></div>
+        </div>
+        <div>
+          <a class="btn btnPrimary" href="mailto:youremail@example.com">Book / Ask a question</a>
+        </div>
+      </div>
+      <div style="margin-top:10px;color:var(--muted);font-size:14px;">
+        Add your social links in the hero section, or paste them here too.
+      </div>
+    </div>
 
     <footer>
       <div>© <span id="y"></span> Rhythmically Rooted Family</div>
-      <div>Teal + Purple • Music + Movement • Confidence + Creativity</div>
+      <div><a href="#register">Register</a> • <a href="#services">Services</a> • <a href="#contact">Contact</a></div>
     </footer>
   </div>
 
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
 </body>
 </html>
