@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About — Rhythmically Rooted Family</title>
+  <meta name="description" content="Learn about the story, mission, and values behind Rhythmically Rooted Family — music and movement for every family." />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── About-page-only styles ─────────────────────────────── */
+
+    /* Story section — two column */
+    .story {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 56px;
+      align-items: center;
+    }
+    @media (max-width: 820px) { .story { grid-template-columns: 1fr; gap: 36px; } }
+
+    .story-text p {
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+    .story-text p strong { color: var(--ink); }
+
+    /* Photo placeholder */
+    .photo-box {
+      background: linear-gradient(135deg, rgba(34,198,184,.18), rgba(124,58,237,.15), rgba(244,114,182,.12));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 36px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-box::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220' viewBox='0 0 220 220'%3E%3Cg fill='none' stroke='%237c3aed' stroke-width='2' opacity='0.3'%3E%3Cpath d='M70 40v85c0 16-16 28-34 28S2 141 2 125s16-28 34-28c10 0 19 3 24 8V40l80-18v78c0 16-16 28-34 28s-34-12-34-28 16-28 34-28c10 0 19 3 24 8V28z'/%3E%3C/g%3E%3C/svg%3E") center/220px repeat;
+      opacity: .12; pointer-events: none;
+    }
+    .photo-box-inner { position: relative; z-index: 1; }
+    .photo-placeholder-icon { font-size: 64px; margin-bottom: 14px; }
+    .photo-box h3 { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
+    .photo-box p { color: var(--muted); font-size: 14.5px; max-width: 28ch; line-height: 1.6; }
+
+    /* Cred badges */
+    .creds {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+    .cred {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.9);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink);
+      box-shadow: var(--shadowSm);
+    }
+    .cred span { font-size: 18px; }
+
+    /* Mission section */
+    .mission-box {
+      background: var(--grad);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      text-align: center;
+    }
+    .mission-box h2 {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+    .mission-box p {
+      font-size: 18px;
+      opacity: .9;
+      max-width: 60ch;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="page-pattern" aria-hidden="true"></div>
+
+  <!-- Announcement bar -->
+  <div class="topbar">
+    ✨ Now enrolling! Upcoming classes forming now —
+    <a href="classes.html">View the schedule →</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="brand" aria-label="Rhythmically Rooted Family – Home">
+        <div class="logo" aria-hidden="true">RR</div>
+        <div class="brand-text">
+          <span class="brand-name">Rhythmically Rooted Family</span>
+          <span class="brand-tagline">Music · Movement · Creativity</span>
+        </div>
+      </a>
+      <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">☰</button>
+      <div class="navlinks" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="classes.html" class="nav-cta">Book a Class</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ─────────────────────────────────────────── -->
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="section-tag">Our Story</div>
+      <h1>Movement rooted in joy,<br />creativity, and belonging.</h1>
+      <p class="lead">
+        We believe every family deserves a space where they feel welcome, seen, and celebrated —
+        exactly as they are. That belief is at the heart of everything we do.
+      </p>
+    </div>
+  </div>
+
+  <!-- ── STORY ─────────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="story">
+        <div>
+          <div class="photo-box" aria-label="Instructor photo placeholder">
+            <div class="photo-box-inner">
+              <div class="photo-placeholder-icon">🌟</div>
+              <h3>Your Photo Here</h3>
+              <p>Replace this box with a warm, friendly photo of yourself teaching or with families.</p>
+            </div>
+          </div>
+          <div class="creds">
+            <div class="cred"><span>🎵</span> Certified Music Educator</div>
+            <div class="cred"><span>⚡</span> Zumba Kids Instructor</div>
+            <div class="cred"><span>🤍</span> Inclusive Movement Specialist</div>
+          </div>
+        </div>
+
+        <div class="story-text">
+          <div class="section-tag">Meet Your Instructor</div>
+          <h2 class="section-title">Hi, I'm [Your Name]!</h2>
+
+          <p>
+            <strong>Replace this paragraph with your own story.</strong> Start with why you
+            started Rhythmically Rooted Family — what motivated you, what problem you saw,
+            or what need you wanted to fill for families in your community.
+          </p>
+
+          <p>
+            Share a little about your background — how long you've been teaching, what
+            certifications or training you have, and what kinds of students you've worked
+            with over the years. This helps parents trust you before they even walk through the door.
+          </p>
+
+          <p>
+            Talk about what makes your classes different — the philosophy, the vibe, the
+            commitment to meeting every body where it is. What do you believe about movement?
+            About childhood? About families? Let your personality shine here.
+          </p>
+
+          <p>
+            End with something personal — your family, a fun fact, what you do when you're
+            not teaching, or why this work means so much to you. People want to connect
+            with the human behind the business. ❤️
+          </p>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;">
+            <a href="classes.html" class="btn btn-primary">Book a Class</a>
+            <a href="contact.html" class="btn btn-outline">Say Hello</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── MISSION ───────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="mission-box">
+        <h2>Our Mission</h2>
+        <p>
+          To create joyful, inclusive spaces where families can move, create, and connect —
+          without pressure or perfection. We believe that music and movement are for every body,
+          every age, and every season of life.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VALUES ────────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="section-tag purple">What We Stand For</div>
+      <h2 class="section-title">Our values</h2>
+      <p class="section-lead">These aren't just words on a page — they shape every class, every interaction, every decision.</p>
+
+      <div class="values">
+        <div class="value-card">
+          <div class="value-icon">🌈</div>
+          <div>
+            <h4>Radical Inclusion</h4>
+            <p>Every body is welcome. Every ability level is celebrated. Every family belongs here — no exceptions, no asterisks.</p>
+          </div>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🌱</div>
+          <div>
+            <h4>Joy Over Perfection</h4>
+            <p>We're not here to perform — we're here to play. Mistakes are welcome, silliness is encouraged, and laughter is the whole point.</p>
+          </div>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">💪</div>
+          <div>
+            <h4>Confidence Building</h4>
+            <p>Movement is one of the most powerful ways to help children and families build confidence. We take that responsibility seriously.</p>
+          </div>
+        </div>
+
+        <div class="value-card">
+          <div class="value-icon">🤝</div>
+          <div>
+            <h4>Community First</h4>
+            <p>We're building more than a class — we're building a community where families feel seen, supported, and connected to each other.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ──────────────────────────────────────── -->
+  <section style="background:rgba(34,198,184,.05);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div class="center">
+        <div class="section-tag">Kind Words</div>
+        <h2 class="section-title">What families say</h2>
+      </div>
+      <div class="testimonials">
+        <div class="testimonial">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <blockquote>
+            "Replace this with a real testimonial from a parent. Keep it genuine and specific —
+            what did their child love? How did it make them feel? Two or three sentences is perfect."
+          </blockquote>
+          <div class="who">— Parent Name, City</div>
+        </div>
+
+        <div class="testimonial">
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+          <blockquote>
+            "Another testimonial here. Maybe this one is from a grandparent who brought their
+            grandchild, or an adult who took the modified class. Variety in voices builds trust."
+          </blockquote>
+          <div class="who">— Parent Name, City</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ──────────────────────────────────────────── -->
+  <div class="cta-band">
+    <h2>Come move with us!</h2>
+    <p>We'd love to meet your family. Register for a class or drop us a message — we'll get back to you quickly.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="classes.html" class="btn btn-white btn-lg">Find a Class</a>
+      <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.35);color:#fff;">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">RR</div>
+        <strong style="color:#fff;font-size:16px;">Rhythmically Rooted Family</strong>
+        <p>Where creativity takes root and confidence blossoms — through music, movement, and enrichment for families.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="classes.html">Classes &amp; Schedule</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <nav class="footer-links" aria-label="Social links">
+          <a href="PUT-INSTAGRAM-LINK-HERE">📸 Instagram</a>
+          <a href="PUT-FACEBOOK-LINK-HERE">📘 Facebook</a>
+          <a href="mailto:youremail@example.com">✉️ Email Us</a>
+          <a href="classes.html">📅 Book a Class</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Rhythmically Rooted Family. All rights reserved.</span>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>

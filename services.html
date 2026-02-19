@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Services — Rhythmically Rooted Family</title>
+  <meta name="description" content="Family music and movement programs for all ages and abilities — from toddler music circles to chair-friendly Zumba." />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Services-page-only styles ──────────────────────────── */
+    .services-full {
+      display: grid;
+      gap: 28px;
+    }
+    .service-detail {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 32px;
+      background: var(--cardBg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadowSm);
+      overflow: hidden;
+      transition: transform .18s, box-shadow .18s;
+    }
+    .service-detail:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .service-accent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 24px;
+      text-align: center;
+      font-size: 64px;
+      min-height: 200px;
+    }
+    .service-accent.teal { background: linear-gradient(135deg, rgba(34,198,184,.18), rgba(34,198,184,.08)); }
+    .service-accent.purple { background: linear-gradient(135deg, rgba(124,58,237,.15), rgba(124,58,237,.06)); }
+    .service-accent.pink { background: linear-gradient(135deg, rgba(244,114,182,.15), rgba(244,114,182,.06)); }
+    .service-accent p {
+      font-size: 13px;
+      font-weight: 900;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-top: 10px;
+    }
+    .service-body { padding: 32px 32px 32px 0; }
+    .service-body h2 { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+    .service-body p { color: var(--muted); margin-bottom: 16px; line-height: 1.7; }
+    .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .tag {
+      background: rgba(34,198,184,.12);
+      border: 1px solid rgba(34,198,184,.25);
+      color: var(--tealDark);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+    .tag.purple {
+      background: rgba(124,58,237,.1);
+      border-color: rgba(124,58,237,.22);
+      color: var(--purple);
+    }
+    .tag.pink {
+      background: rgba(244,114,182,.1);
+      border-color: rgba(244,114,182,.22);
+      color: #c2185b;
+    }
+
+    @media (max-width: 720px) {
+      .service-detail { grid-template-columns: 1fr; }
+      .service-body { padding: 0 24px 28px; }
+      .service-accent { min-height: 140px; font-size: 48px; }
+    }
+
+    /* Pricing section */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+    }
+    @media (max-width: 820px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+    .price-card {
+      background: var(--cardBg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadowSm);
+      padding: 32px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s;
+    }
+    .price-card:hover { transform: translateY(-4px); }
+    .price-card.featured {
+      background: var(--grad);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 20px 50px rgba(34,198,184,.25);
+    }
+    .price-card.featured h3,
+    .price-card.featured p,
+    .price-card.featured li { color: rgba(255,255,255,.88); }
+    .price-card.featured strong { color: #fff; }
+    .price-card h3 { font-size: 18px; font-weight: 900; margin-bottom: 8px; }
+    .price-card .price { font-size: 36px; font-weight: 900; margin: 12px 0; color: var(--ink); }
+    .price-card.featured .price { color: #fff; }
+    .price-card p { color: var(--muted); font-size: 14px; margin-bottom: 16px; }
+    .price-card ul { list-style: none; padding: 0; margin-bottom: 24px; display: grid; gap: 8px; }
+    .price-card li { font-size: 14.5px; color: var(--muted); font-weight: 700; }
+    .price-card li::before { content: '✓ '; color: var(--teal); }
+    .price-card.featured li::before { color: rgba(255,255,255,.7); }
+    .best-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: .5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="page-pattern" aria-hidden="true"></div>
+
+  <!-- Announcement bar -->
+  <div class="topbar">
+    ✨ Now enrolling! Upcoming classes forming now —
+    <a href="classes.html">View the schedule →</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="brand" aria-label="Rhythmically Rooted Family – Home">
+        <div class="logo" aria-hidden="true">RR</div>
+        <div class="brand-text">
+          <span class="brand-name">Rhythmically Rooted Family</span>
+          <span class="brand-tagline">Music · Movement · Creativity</span>
+        </div>
+      </a>
+      <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">☰</button>
+      <div class="navlinks" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="classes.html" class="nav-cta">Book a Class</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ─────────────────────────────────────────── -->
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="section-tag">Our Programs</div>
+      <h1>Movement for <em>every</em> body,<br />joy for every family.</h1>
+      <p class="lead">
+        Whether you're dancing with your toddler, watching your kid light up at Zumba,
+        or finding gentle movement that works for your body — there's a place for you here.
+      </p>
+      <a href="classes.html" class="btn btn-primary">View Class Schedule</a>
+    </div>
+  </div>
+
+  <!-- ── SERVICES ──────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-title">Our programs</h2>
+      <p class="section-lead">Three core offerings — all rooted in joy, creativity, and showing up just as you are.</p>
+
+      <div class="services-full">
+
+        <!-- Service 1 -->
+        <div class="service-detail">
+          <div class="service-accent teal">
+            🎶
+            <p>For Families</p>
+          </div>
+          <div class="service-body">
+            <h2>Family Music &amp; Movement</h2>
+            <p>
+              A joyful, sensory-rich experience for babies, toddlers, and young children — with caregivers
+              invited to participate fully. Classes weave together live music, movement, rhythm, and
+              imaginative play to build connection, language development, and a lifelong love of music.
+            </p>
+            <p>
+              No prior experience needed. Just bring your little one and your willingness to be a little
+              silly — we'll handle the rest.
+            </p>
+            <div class="service-tags">
+              <span class="tag">Ages 0–6</span>
+              <span class="tag">Caregivers welcome</span>
+              <span class="tag">Sensory-friendly</span>
+              <span class="tag">Live instruments</span>
+            </div>
+            <a href="classes.html" class="btn btn-primary btn-sm">See Class Times</a>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="service-detail">
+          <div class="service-accent purple">
+            ⚡
+            <p>For Kids</p>
+          </div>
+          <div class="service-body">
+            <h2>Zumba Kids / Youth Movement</h2>
+            <p>
+              High-energy, age-appropriate Zumba-inspired movement classes built around confidence,
+              self-expression, and fun. Kids move to great music, build coordination, and develop
+              a healthy relationship with their bodies — all without the pressure of perfection.
+            </p>
+            <p>
+              Designed for elementary-age kids who love to move. No dance experience required —
+              just a good attitude and some comfortable shoes!
+            </p>
+            <div class="service-tags">
+              <span class="tag purple">Ages 5–12</span>
+              <span class="tag purple">High energy</span>
+              <span class="tag purple">Confidence-building</span>
+              <span class="tag purple">No experience needed</span>
+            </div>
+            <a href="classes.html" class="btn btn-purple btn-sm">See Class Times</a>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="service-detail">
+          <div class="service-accent pink">
+            🤍
+            <p>For All Abilities</p>
+          </div>
+          <div class="service-body">
+            <h2>Modified / Chair-Friendly Movement</h2>
+            <p>
+              Joyful, accessible movement designed to meet every body where it is. Whether you're
+              recovering from injury, managing a chronic condition, or simply prefer lower-impact
+              options — this class celebrates what your body can do, not what it can't.
+            </p>
+            <p>
+              Every participant deserves to feel the joy of movement. Modifications are available
+              throughout, and the pace is always welcoming.
+            </p>
+            <div class="service-tags">
+              <span class="tag pink">All ages</span>
+              <span class="tag pink">All abilities</span>
+              <span class="tag pink">Chair &amp; standing options</span>
+              <span class="tag pink">Low-impact</span>
+            </div>
+            <a href="classes.html" class="btn btn-sm" style="background:var(--gradWarm);color:#fff;border:none;">See Class Times</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ──────────────────────────────────────── -->
+  <section style="background:rgba(34,198,184,.05);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div class="center">
+        <div class="section-tag">Getting Started</div>
+        <h2 class="section-title">Easy as 1, 2, 3</h2>
+        <p class="section-lead">Getting your family into class has never been simpler.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Browse &amp; Choose</h3>
+          <p>Look through our class schedule and pick the program that fits your family's schedule and needs.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Register Online</h3>
+          <p>Click "Register" on the class you want — it only takes a minute and your spot is held immediately.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Show Up &amp; Play!</h3>
+          <p>Come dressed comfortably, bring water, and leave expectations at the door. We'll handle the fun!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING ───────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="center">
+        <div class="section-tag">Investment</div>
+        <h2 class="section-title">Simple, transparent pricing</h2>
+        <p class="section-lead">Update these with your real pricing. No hidden fees, ever.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Drop-In</h3>
+          <div class="price">$00</div>
+          <p>Try a class before committing to a session.</p>
+          <ul>
+            <li>Single class access</li>
+            <li>Any program</li>
+            <li>No commitment</li>
+            <li>Subject to availability</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline" style="width:100%;">Contact to Book</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="best-badge">POPULAR</div>
+          <h3>Session Pack</h3>
+          <div class="price">$000</div>
+          <p>Commit to the full session and save.</p>
+          <ul>
+            <li>6–8 class sessions</li>
+            <li>Consistent weekly time</li>
+            <li>Priority registration</li>
+            <li>Sibling discounts available</li>
+          </ul>
+          <a href="classes.html" class="btn btn-white" style="width:100%;">Register Now</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Private / Group Event</h3>
+          <div class="price">Custom</div>
+          <p>Birthday parties, school events, community pop-ups.</p>
+          <ul>
+            <li>Custom length &amp; format</li>
+            <li>Any of our programs</li>
+            <li>Mobile-friendly</li>
+            <li>Inquiry-based pricing</li>
+          </ul>
+          <a href="contact.html" class="btn btn-outline" style="width:100%;">Request Info</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ──────────────────────────────────────────── -->
+  <div class="cta-band">
+    <h2>Not sure which class is right for you?</h2>
+    <p>Reach out — we love helping families find their perfect fit. No question is too small!</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="contact.html" class="btn btn-white btn-lg">Ask a Question</a>
+      <a href="classes.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.35);color:#fff;">View Schedule</a>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">RR</div>
+        <strong style="color:#fff;font-size:16px;">Rhythmically Rooted Family</strong>
+        <p>Where creativity takes root and confidence blossoms — through music, movement, and enrichment for families.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="classes.html">Classes &amp; Schedule</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <nav class="footer-links" aria-label="Social links">
+          <a href="PUT-INSTAGRAM-LINK-HERE">📸 Instagram</a>
+          <a href="PUT-FACEBOOK-LINK-HERE">📘 Facebook</a>
+          <a href="mailto:youremail@example.com">✉️ Email Us</a>
+          <a href="classes.html">📅 Book a Class</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Rhythmically Rooted Family. All rights reserved.</span>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
