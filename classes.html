@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Classes &amp; Schedule — Rhythmically Rooted Family</title>
+  <meta name="description" content="Browse upcoming classes, times, and locations — then register to save your spot." />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ── Classes-page-only styles ──────────────────────────── */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-family: var(--font);
+      font-weight: 800;
+      font-size: 14px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--grad);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    /* Extended schedule row */
+    .class-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 24px;
+      background: var(--cardBg);
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      box-shadow: var(--shadowSm);
+      transition: box-shadow .18s, transform .15s;
+      margin-bottom: 12px;
+    }
+    .class-row:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+    .class-type-dot {
+      width: 12px; height: 12px; border-radius: 999px; flex-shrink: 0;
+    }
+    .dot-teal  { background: var(--teal); }
+    .dot-purple { background: var(--purple); }
+    .dot-pink   { background: var(--pink); }
+
+    .class-info strong { font-size: 16px; font-weight: 900; display: block; margin-bottom: 4px; }
+    .class-info span { color: var(--muted); font-size: 14px; }
+    .class-badge {
+      font-size: 12px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .badge-teal   { background: rgba(34,198,184,.14); color: var(--tealDark); }
+    .badge-purple { background: rgba(124,58,237,.12); color: var(--purple); }
+    .badge-pink   { background: rgba(244,114,182,.12); color: #c2185b; }
+
+    @media (max-width: 680px) {
+      .class-row { grid-template-columns: auto 1fr; grid-template-rows: auto auto; }
+      .class-badge { display: none; }
+      .class-row .btn { grid-column: 2; justify-self: start; }
+    }
+
+    /* What to expect */
+    .expect-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
+    }
+    @media (max-width: 720px) { .expect-grid { grid-template-columns: 1fr; } }
+    .expect-item {
+      display: flex;
+      gap: 16px;
+      padding: 22px;
+      background: var(--cardBg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadowSm);
+    }
+    .expect-icon { font-size: 28px; flex-shrink: 0; }
+    .expect-item h4 { font-size: 16px; font-weight: 900; margin-bottom: 4px; }
+    .expect-item p { color: var(--muted); font-size: 14.5px; }
+
+    /* FAQ */
+    .faq { display: grid; gap: 12px; }
+    details {
+      background: var(--cardBg);
+      border: 1px solid var(--border);
+      border-radius: var(--radiusSm);
+      box-shadow: var(--shadowSm);
+      overflow: hidden;
+    }
+    details[open] { border-color: var(--teal); }
+    summary {
+      padding: 18px 22px;
+      font-weight: 900;
+      font-size: 15.5px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink);
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; font-size: 20px; color: var(--teal); }
+    details[open] summary::after { content: '−'; }
+    details p { padding: 0 22px 18px; color: var(--muted); line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <div class="page-pattern" aria-hidden="true"></div>
+
+  <!-- Announcement bar -->
+  <div class="topbar">
+    ✨ Now enrolling! Upcoming classes forming now —
+    <a href="#schedule">Jump to schedule →</a>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="index.html" class="brand" aria-label="Rhythmically Rooted Family – Home">
+        <div class="logo" aria-hidden="true">RR</div>
+        <div class="brand-text">
+          <span class="brand-name">Rhythmically Rooted Family</span>
+          <span class="brand-tagline">Music · Movement · Creativity</span>
+        </div>
+      </a>
+      <button class="hamburger" id="menuBtn" aria-expanded="false" aria-controls="navMenu" aria-label="Open menu">☰</button>
+      <div class="navlinks" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="classes.html" class="nav-cta">Book a Class</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── PAGE HERO ─────────────────────────────────────────── -->
+  <div class="page-hero">
+    <div class="wrap">
+      <div class="section-tag">Schedule</div>
+      <h1>Find your class &amp;<br />save your spot.</h1>
+      <p class="lead">
+        Browse upcoming classes and register online in seconds.
+        Spots fill quickly — we'd love to see you there!
+      </p>
+      <a href="#schedule" class="btn btn-primary">View Classes Below</a>
+    </div>
+  </div>
+
+  <!-- ── SCHEDULE ──────────────────────────────────────────── -->
+  <section id="schedule">
+    <div class="wrap">
+      <div class="section-tag">Upcoming Classes</div>
+      <h2 class="section-title">Class schedule</h2>
+      <p class="section-lead">Update these rows with your real class times, locations, and registration links.</p>
+
+      <!-- Filter buttons (visual only — update with JS if desired) -->
+      <div class="filter-bar" aria-label="Filter by class type">
+        <button class="filter-btn active">All Classes</button>
+        <button class="filter-btn">Family Music</button>
+        <button class="filter-btn">Zumba Kids</button>
+        <button class="filter-btn">Chair-Friendly</button>
+      </div>
+
+      <!-- Family Music rows -->
+      <div class="class-row">
+        <div class="class-type-dot dot-teal" aria-hidden="true"></div>
+        <div class="class-info">
+          <strong>Family Music &amp; Movement — Morning Session</strong>
+          <span>Day · Time · Location — update with your real details</span>
+        </div>
+        <span class="class-badge badge-teal">Ages 0–6</span>
+        <a href="PUT-YOUR-REGISTRATION-LINK-HERE" class="btn btn-primary btn-sm">Register</a>
+      </div>
+
+      <div class="class-row">
+        <div class="class-type-dot dot-teal" aria-hidden="true"></div>
+        <div class="class-info">
+          <strong>Family Music &amp; Movement — Afternoon Session</strong>
+          <span>Day · Time · Location — update with your real details</span>
+        </div>
+        <span class="class-badge badge-teal">Ages 0–6</span>
+        <a href="PUT-YOUR-REGISTRATION-LINK-HERE" class="btn btn-primary btn-sm">Register</a>
+      </div>
+
+      <!-- Zumba Kids rows -->
+      <div class="class-row">
+        <div class="class-type-dot dot-purple" aria-hidden="true"></div>
+        <div class="class-info">
+          <strong>Zumba Kids — Elementary Energy</strong>
+          <span>Day · Time · Location — update with your real details</span>
+        </div>
+        <span class="class-badge badge-purple">Ages 5–12</span>
+        <a href="PUT-YOUR-REGISTRATION-LINK-HERE" class="btn btn-purple btn-sm">Register</a>
+      </div>
+
+      <div class="class-row">
+        <div class="class-type-dot dot-purple" aria-hidden="true"></div>
+        <div class="class-info">
+          <strong>Youth Movement &amp; Dance — Weekend Session</strong>
+          <span>Day · Time · Location — update with your real details</span>
+        </div>
+        <span class="class-badge badge-purple">Ages 5–12</span>
+        <a href="PUT-YOUR-REGISTRATION-LINK-HERE" class="btn btn-purple btn-sm">Register</a>
+      </div>
+
+      <!-- Chair-friendly rows -->
+      <div class="class-row">
+        <div class="class-type-dot dot-pink" aria-hidden="true"></div>
+        <div class="class-info">
+          <strong>Modified &amp; Chair-Friendly Movement</strong>
+          <span>Day · Time · Location — update with your real details</span>
+        </div>
+        <span class="class-badge badge-pink">All abilities</span>
+        <a href="PUT-YOUR-REGISTRATION-LINK-HERE" class="btn btn-sm" style="background:var(--gradWarm);color:#fff;border:none;">Register</a>
+      </div>
+
+      <p style="margin-top:10px;color:var(--muted);font-size:14px;">
+        🔑 <strong>Color key:</strong>
+        <span style="color:var(--tealDark);font-weight:800;">Teal = Family Music</span> ·
+        <span style="color:var(--purple);font-weight:800;">Purple = Zumba Kids</span> ·
+        <span style="color:#c2185b;font-weight:800;">Pink = Chair-Friendly</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ── WHAT TO EXPECT ────────────────────────────────────── -->
+  <section style="background:rgba(124,58,237,.04);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+    <div class="wrap">
+      <div class="section-tag purple">Class Info</div>
+      <h2 class="section-title">What to expect</h2>
+      <p class="section-lead">Here's everything you need to know before your first class.</p>
+
+      <div class="expect-grid">
+        <div class="expect-item">
+          <div class="expect-icon">👟</div>
+          <div>
+            <h4>What to wear</h4>
+            <p>Comfortable, movement-friendly clothing and sneakers. Layers are great — classes can get energetic!</p>
+          </div>
+        </div>
+        <div class="expect-item">
+          <div class="expect-icon">🎒</div>
+          <div>
+            <h4>What to bring</h4>
+            <p>Just your water bottle and a great attitude. We provide all instruments and materials.</p>
+          </div>
+        </div>
+        <div class="expect-item">
+          <div class="expect-icon">🕐</div>
+          <div>
+            <h4>Arrive early</h4>
+            <p>We recommend arriving 5–10 minutes before your first class so you can get settled and meet us.</p>
+          </div>
+        </div>
+        <div class="expect-item">
+          <div class="expect-icon">🤗</div>
+          <div>
+            <h4>No experience needed</h4>
+            <p>All skill levels are welcome. Classes are designed to be approachable, fun, and judgment-free.</p>
+          </div>
+        </div>
+        <div class="expect-item">
+          <div class="expect-icon">📸</div>
+          <div>
+            <h4>Photos &amp; privacy</h4>
+            <p>We occasionally take photos for social media. Let us know at registration if you prefer to opt out.</p>
+          </div>
+        </div>
+        <div class="expect-item">
+          <div class="expect-icon">💬</div>
+          <div>
+            <h4>Have questions?</h4>
+            <p>Reach out anytime before your first class — we're happy to answer any question, big or small.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ ───────────────────────────────────────────────── -->
+  <section>
+    <div class="wrap">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Frequently asked questions</h2>
+      <p class="section-lead" style="margin-bottom:28px;">Can't find what you're looking for? <a href="contact.html" style="color:var(--purple);font-weight:800;">Contact us directly.</a></p>
+
+      <div class="faq">
+        <details open>
+          <summary>Can I try a class before committing to a full session?</summary>
+          <p>Yes! Drop-in spots are available on a space-permitting basis. Contact us to check availability before your visit, or register for a single drop-in class through the schedule above.</p>
+        </details>
+
+        <details>
+          <summary>What if my child has different needs or sensory sensitivities?</summary>
+          <p>We welcome all children and families. Please reach out before your first class so we can make sure the environment and approach are the right fit. Sensory-friendly accommodations are our default, not an exception.</p>
+        </details>
+
+        <details>
+          <summary>What is your cancellation / refund policy?</summary>
+          <p>Update this with your real policy. A typical policy might be: full refunds for cancellations 48+ hours in advance, class credits for later cancellations, and no refunds for no-shows — but this is entirely up to you.</p>
+        </details>
+
+        <details>
+          <summary>Do caregivers need to stay during Zumba Kids classes?</summary>
+          <p>For younger children (ages 5–7) we ask that a caregiver remains on-site. For older children, drop-off is welcome. We'll confirm the right fit when you register.</p>
+        </details>
+
+        <details>
+          <summary>Do you offer private events, birthday parties, or school programs?</summary>
+          <p>Absolutely! We love doing private events, birthday movement parties, school enrichment programs, and community pop-ups. <a href="contact.html" style="color:var(--purple);font-weight:800;">Contact us</a> to discuss your needs and get a custom quote.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA BAND ──────────────────────────────────────────── -->
+  <div class="cta-band">
+    <h2>Ready to move together?</h2>
+    <p>Classes fill up fast — secure your spot today and we'll see you on the floor!</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <a href="#schedule" class="btn btn-white btn-lg">Register Now</a>
+      <a href="contact.html" class="btn btn-lg" style="background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.35);color:#fff;">Contact Us</a>
+    </div>
+  </div>
+
+  <!-- ── FOOTER ────────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">RR</div>
+        <strong style="color:#fff;font-size:16px;">Rhythmically Rooted Family</strong>
+        <p>Where creativity takes root and confidence blossoms — through music, movement, and enrichment for families.</p>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="classes.html">Classes &amp; Schedule</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <nav class="footer-links" aria-label="Social links">
+          <a href="PUT-INSTAGRAM-LINK-HERE">📸 Instagram</a>
+          <a href="PUT-FACEBOOK-LINK-HERE">📘 Facebook</a>
+          <a href="mailto:youremail@example.com">✉️ Email Us</a>
+          <a href="classes.html">📅 Book a Class</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> Rhythmically Rooted Family. All rights reserved.</span>
+      <a href="contact.html">Contact Us</a>
+    </div>
+  </footer>
+
+  <script src="nav.js"></script>
+</body>
+</html>
